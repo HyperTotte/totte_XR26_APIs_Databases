@@ -48,7 +48,7 @@ namespace WeatherApp.Config
                 catch (System.Exception ex)
                 {
                     Debug.LogError($"Failed to load API configuration: {ex.Message}");
-                    _apiKey = "YOUR_API_KEY_HERE";
+                    _apiKey = "YOUR_API_KEY_HERE"; //unsafe. is it a trick question Oliwer??
                     _isLoaded = true;
                 }
             }
