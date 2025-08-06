@@ -38,8 +38,9 @@ namespace WeatherApp.Services
                 Debug.LogError("API key not configured. Please set up your config.json file in StreamingAssets folder.");
                 return null;
             }
-            
+
             // TODO: Build the complete URL with city and API key
+            string apiKey = ApiConfig.OpenWeatherMapApiKey;
             string url = $"";
             
             // TODO: Create UnityWebRequest and use modern async pattern
