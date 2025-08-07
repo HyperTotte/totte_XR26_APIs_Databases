@@ -41,22 +41,38 @@ namespace WeatherApp.Services
 
             // TODO: Build the complete URL with city and API key
             string apiKey = ApiConfig.OpenWeatherMapApiKey;
-            string url = $"";
-            
+            string url = $"{baseUrl}?={city}&appid={apiKey}&units=metric";
+
             // TODO: Create UnityWebRequest and use modern async pattern
-            using (UnityWebRequest request = UnityWebRequest.Get(url))
+            using UnityWebRequest request = UnityWebRequest.Get(url);
+            // TODO: Use async/await, send the request and wait for response
+            var operation = request.SendWebRequest(); // start of request 
+            while (!operation.isDone) await Task.Yield(); // wating for request while not blocking.
+                                                          // TODO: Implement proper error handling for different result types
+            if (request.result == UnityWebRequest.Result.ConnectionError ||
+                request.result == UnityWebRequest.Result.ProtocolError ||
+                request.result == UnityWebRequest.Result.DataProcessingError)
             {
-                // TODO: Use async/await, send the request and wait for response
-                
-                // TODO: Implement proper error handling for different result types
-                // Check request.result for Success, ConnectionError, ProtocolError, DataProcessingError
-                
-                // TODO: Parse JSON response using Newtonsoft.Json
-                
-                // TODO: Return the parsed WeatherData object
-                
-                return null; // Placeholder - students will replace this
+                Debug.LogError($"Request Error: {request.error}");
+                return null;
             }
+            // Check request.result for Success, ConnectionError, ProtocolError, DataProcessingError
+            try
+            {
+                string json = request.downloadHandler.text;
+                WeatherData weatherData = JsonConvert.DeserializeObject<WeatherData>(json);
+                return weatherData;
+            }
+            // TODO: Parse JSON response using Newtonsoft.Json
+
+            // TODO: Return the parsed WeatherData object
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to parse weather data: {ex.Message}");
+                return null;
+            }
+
+            return null; // Placeholder - students will replace this
         }
         
         /// <summary>

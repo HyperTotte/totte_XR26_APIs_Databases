@@ -51,10 +51,21 @@ namespace WeatherApp.UI
             try
             {
                 // TODO: Call API client to get weather data
-              
-                
-                // TODO: Handle the response
-            }
+              var weatherData = await apiClient.GetWeatherDataAsync(cityName);
+
+                if (weatherData != null && weatherData.IsValid)
+                {
+                    DisplayWeatherData(weatherData);
+                    SetStatusText("Weather data loaded successfully");
+                }
+                else
+                {
+                    SetStatusText("Failed to get weather data. Please try again.");
+                }
+
+
+                    // TODO: Handle the response
+                }
             catch (System.Exception ex)
             {
                 // Handle exceptions
