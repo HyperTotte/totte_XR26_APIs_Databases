@@ -27,7 +27,7 @@ namespace WeatherApp.Data
         public int StatusCode { get; set; }
         
         // Helper properties for easier data access
-        public float TemperatureInCelsius => Main?.Temperature - 273.15f ?? 0f;
+        public float TemperatureInCelsius => Main?.Temperature ?? 0f;
         public string PrimaryDescription => Weather?.Length > 0 ? Weather[0].Description : "Unknown";
         
         // Validation method

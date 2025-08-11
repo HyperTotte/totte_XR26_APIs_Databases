@@ -41,7 +41,7 @@ namespace WeatherApp.Services
 
             // TODO: Build the complete URL with city and API key
             string apiKey = ApiConfig.OpenWeatherMapApiKey;
-            string url = $"{baseUrl}?={city}&appid={apiKey}&units=metric";
+            string url = $"{baseUrl}?q={city}&appid={apiKey}&units=metric";
 
             // TODO: Create UnityWebRequest and use modern async pattern
             using UnityWebRequest request = UnityWebRequest.Get(url);

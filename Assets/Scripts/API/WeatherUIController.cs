@@ -90,7 +90,11 @@ namespace WeatherApp.UI
             // Humidity: 65%
             // Pressure: 1013 hPa
 
-            string displayText = "";
+            string displayText = $"City: {weatherData.CityName}\n" +
+                $"Temperature: {weatherData.TemperatureInCelsius}\n" +
+                $"Description: {weatherData.PrimaryDescription}\n" +
+                $"Humidity: {weatherData.Main.Humidity}\n" +
+                $"Presure: {weatherData.Main.Pressure} hPa";
             
             // TODO: Add more weather details
             if (weatherData.Main != null)
